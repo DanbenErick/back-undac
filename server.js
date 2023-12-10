@@ -43,6 +43,7 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "/index.html"));
 });
 
+// Apertura de un proceso
 app.post("/procesos", (req, res) => {
   // Recibimos los datos
   const nombre = req.body.nombre;
@@ -93,30 +94,140 @@ app.post("/procesos", (req, res) => {
   //   res.status(200)
   //   res.send("ok")
 });
+// Registro de un voucher de pago
 app.post("/registrar-voucher", (req, res) => {
-    const {proceso,fecha_reg,dni,nombre,monto: pago1,codigo,idusu,signup} = req.body
-    console.log(req.body)
+  const {
+    proceso,
+    fecha_reg,
+    dni,
+    nombre,
+    monto: pago1,
+    codigo,
+    idusu,
+    signup,
+  } = req.body;
+  console.log(req.body);
 
-    const modalidad = "n"
-    const carrera = 1
-    const sede_e = "n"
-    const pago2 = null
-    const preparatoria = "n"
-    const anio = "n"
-    const turno = "n"
+  const modalidad = "n";
+  const carrera = 1;
+  const sede_e = "n";
+  const pago2 = null;
+  const preparatoria = "n";
+  const anio = "n";
+  const turno = "n";
 
-    // Ejecutamos la consulta
-  connection.query(`INSERT INTO inscritos (dni, codigo, proceso, modalidad, carrera, sede_e, pago1, pago2, preparatoria, fecha_reg, anio, turno)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [dni, codigo, proceso, modalidad, carrera, sede_e, pago1, pago2, preparatoria, fecha_reg, anio, turno], (err, results) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+  // Ejecutamos la consulta
+  connection.query(
+    `INSERT INTO inscritos (dni, codigo, proceso, modalidad, carrera, sede_e, pago1, pago2, preparatoria, fecha_reg, anio, turno)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      dni,
+      codigo,
+      proceso,
+      modalidad,
+      carrera,
+      sede_e,
+      pago1,
+      pago2,
+      preparatoria,
+      fecha_reg,
+      anio,
+      turno,
+    ],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
 
-  console.log('Registro insertado correctamente');
+      console.log("Registro insertado correctamente");
+    }
+  );
+  res.send("ok");
 });
-    res.send("ok")
-})
+
+const utilitarios = {
+  generarNumero4y5: (numero_requerido) => {
+    let final = "";
+    let suma = 0;
+    for (let i = 0; i < numero_requerido; i++) {
+      let numero = Math.floor(Math.random() * 10);
+      if (numero < 6) numero = 4;
+      else if (numero < 11) numero = 5;
+      suma += numero;
+      final += numero.toString();
+    }
+    return {final, suma}
+  },
+};
+
+app.post("/registrar-datos-postulante", (req, res) => {
+  // Generamos un número aleatorio entre 4 y 5
+    const {sexo, nac, departamento, provincia, distrito, direccionActual, dis, tipodis, etnica, celular, fono, logo }  = req.body;
+    const {dni, fecha_reg} = req.body;
+//   sexo: MASCULINO
+//   nac: 2023-12-14
+//   Departamento: Amazonas
+//   Provincia: Chachapoyas
+//   Distrito: 010101
+//   direccionActual: Av bolivar mz a1 lote 30
+//   dis: SI
+//   tipodis:
+//   etnica: AYMARA
+//   celular: 952354116
+//   fono: 930617118
+//   logo: (binary)
+
+  //Tabla actitud
+//   res1
+//   res2
+//   dni
+//   total1
+//   total2
+//   fecha_reg
+    const gen1 = utilitarios.generarNumero4y5(15);
+    const gen2 = utilitarios.generarNumero4y5(15);
+    const res1 = gen1.final;
+    const res2 = gen2.final;
+    const total1 = gen1.suma;
+    const total2 = gen2.suma;
+
+    console.log("datos ",res1, res2, total1, total2);
+
+  // Ejecutamos la consulta
+  connection.query(
+    `INSERT INTO datos_comp(dni, sexo, fecha_nac, lugar_nac, direccion_act, disca, tipo_disca, etnica, fono1, fono2, foto, fecha_datos, colegio, tipo_colegio) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      'dni', 'sexo', 'fecha_nac', 'lugar_nac', 'direccion_act', 'disca', 'tipo_disca', 'etnica', 'fono1', 'fono2', 'foto', 'fecha_datos', 'colegio', 'tipo_colegio'
+    ],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      console.log("Registro insertado correctamente");
+      res.status(200).send({
+        mensaje: "Proceso creado correctamente",
+      });
+      res.end()
+    }
+  );
+
+
+  // Ejecutamos la consulta
+  connection.query(`INSERT INTO actitud (res1, res2, dni, total1, total2, fecha_reg)
+    VALUES (?, ?, ?, ?, ?, ?)`, [res1, res2, dni, total1, total2, fecha_reg], (err, results) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    console.log('Registro insertado correctamente');
+  });
+
+
+});
 
 app.listen(PORT, function () {
   console.log(`Esta el puerto ${PORT}`);
