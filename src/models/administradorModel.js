@@ -10,8 +10,8 @@ Estudiante.setVoucherDePago = (data, callback) => {
         [dni,codigo,proceso,modalidad,carrera,sede_e,pago1,pago2,preparatoria,fecha_reg,anio,turno],
         (err, result) => {
             if (err) throw err
-            callback(result)
             console.log("Registro insertado correctamente");
+            callback(result)
         }
       );
 }

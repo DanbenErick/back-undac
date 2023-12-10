@@ -1,4 +1,4 @@
-const Administrador = require('../models/estudianteModel')
+const Administrador = require('../models/administradorModel')
 
 exports.setVoucherDePago = (req, res) => {
     const { proceso, fecha_reg, dni, nombre, monto: pago1, codigo, idusu, signup} = req.body
@@ -12,6 +12,5 @@ exports.setVoucherDePago = (req, res) => {
     const data = { proceso, fecha_reg, dni, nombre, pago1, codigo, idusu, signup, modalidad ,carrera ,sede_e ,pago2 ,preparatoria ,anio ,turno }
     Administrador.setVoucherDePago(data, (result) => {
         res.json(result)
-        res.send("ok");
     })
 }
