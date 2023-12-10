@@ -1,7 +1,7 @@
 const db = require('../config/db')
-const Estudiante = {}
+const Administrador = {}
 
-Estudiante.setVoucherDePago = (data, callback) => {
+Administrador.setVoucherDePago = (data, callback) => {
     // Ejecutamos la consulta
     const { proceso, fecha_reg, dni, nombre, pago1, codigo, idusu, signup, modalidad ,carrera ,sede_e ,pago2 ,preparatoria ,anio ,turno } = data
     db.query(
@@ -15,5 +15,17 @@ Estudiante.setVoucherDePago = (data, callback) => {
         }
       );
 }
+Administrador.crearProceso = (data, callback) => {
+  const { nombre, estado, fecha } = data
+  db.query(
+    `INSERT INTO procesos (nombre, estado, fecha) VALUES (?, ?, ?)`,
+    [nombre, estado, fecha],
+    (err, result) => {
+      if (err) throw err
+      console.log("Registro insertado correctamente");
+      callback(result)  
+    }
+  );
+}
 
-module.exports = Estudiante
+module.exports = Administrador

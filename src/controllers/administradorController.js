@@ -14,3 +14,40 @@ exports.setVoucherDePago = (req, res) => {
         res.json(result)
     })
 }
+
+exports.crearProceso = (req, res) => {
+     // Recibimos los datos
+     const { nombre, estado, fecha } = req.body
+     Administrador.crearProceso(req.body, (result) => {
+        res.status(200).json(result)
+     })
+     //   Validamos los datos
+    //  if (!nombre) {
+    //    return res.status(400).send({
+    //      error: "El nombre es obligatorio",
+    //    });
+    //  }
+   
+    //  if (!estado) {
+    //    return res.status(400).send({
+    //      error: "El estado es obligatorio",
+    //    });
+    //  }
+   
+    //  if (!fecha) {
+    //    return res.status(400).send({
+    //      error: "La fecha es obligatoria",
+    //    });
+    //  }
+   
+     // Guardamos los datos
+     
+     // Devolvemos una respuesta
+   
+     // Ejecutamos la consulta
+     
+   
+     
+     //   res.status(200)
+     //   res.send("ok")
+}
