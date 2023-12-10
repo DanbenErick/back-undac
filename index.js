@@ -6,8 +6,10 @@ const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   database: "admision_cepre",
-  user: "root",
-  password: "",
+  // user: "root",
+  // password: "",
+  user: "root_test",
+  password: "test",
 });
 
 // Conectamos a la base de datos
@@ -21,27 +23,15 @@ connection.connect((err) => {
 });
 
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const multer = require("multer");
+const bodyParser = require('body-parser')
+const routes = require('./src/routes/index')
+
 const app = express();
 const PORT = process.env.PORT || 8000;
+
 // Archivos Estaticos
-
-// const upload = multer({
-//     storage: opcionesMulter
-// });
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  "/jquery",
-  express.static(path.join(__dirname, "node_modules", "jquery", "dist"))
-);
-
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "/index.html"));
-});
+app.use(bodyParser.json())
+app.use('/', routes)
 
 // Apertura de un proceso
 app.post("/procesos", (req, res) => {
