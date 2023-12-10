@@ -16,3 +16,12 @@ localhost:8000/api/administrador/registrar-voucher
    "signup": "12"
 }
 ```
+
+localhost:8000/api/administrador/crear-proceso
+```
+{
+  "nombre": "ORDINARIO X",
+  "estado": "abierto",
+  "fecha": "10/12/2023"
+}
+```
