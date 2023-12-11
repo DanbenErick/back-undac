@@ -46,7 +46,7 @@ Este endpoint se utiliza para crear un nuevo proceso en el sistema.
   "estado": "abierto",
   "fecha": "10/12/2023"
 }
-
+```
 
 ## Registro de Datos del Postulante
 
