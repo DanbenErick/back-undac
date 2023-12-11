@@ -2,9 +2,10 @@ const db = require("../config/db");
 const Estudiante = {};
 
 Estudiante.getUbigerPorZona = (data, callback) => {
+  console.log(data)
   db.query(
-    "SELECT ubigeo FROM ubigeo WHERE distrito = ? AND provincia = ? AND departamento = ?",
-    data,
+    "SELECT ubigeo FROM ubigeo WHERE departamento = ? AND provincia = ? AND distrito = ?",
+    [...data],
     (err, results) => {
       if (err) throw err;
       callback(results);
@@ -19,7 +20,7 @@ Estudiante.getDepartamentos = (callback) => {
 };
 Estudiante.getProvincias = (data, callback) => {
   db.query(
-    "SELECT Provincia FROM ubigeo WHERE Departamento = '?'",
+    "SELECT DISTINCT Provincia FROM ubigeo WHERE Departamento = ?",
     data,
     (err, results) => {
       if (err) throw err;
@@ -28,9 +29,10 @@ Estudiante.getProvincias = (data, callback) => {
   );
 };
 Estudiante.getDistritos = (data, callback) => {
+  console.log(data)
   db.query(
-    "SELECT  Distrito FROM ubigeo WHERE Departamento = '?' AND Provincia = '?'",
-    data,
+    "SELECT DISTINCT Distrito FROM ubigeo WHERE Departamento = ? AND Provincia = ?",
+    [...data],
     (err, results) => {
       if (err) throw err;
       callback(results);

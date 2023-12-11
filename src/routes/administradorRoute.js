@@ -5,13 +5,13 @@ const administradorController = require('../controllers/administradorController'
 router.get('/', (req, res) => {
   res.send('Rutas de administradores');
 });
+ 
 
-// Apertura de un proceso
-router.post("/crear-procesos", (req, res) => {});
 
 // Registro de un voucher de pago
 router.post("/registrar-voucher", administradorController.setVoucherDePago);
 router.post("/crear-proceso", administradorController.crearProceso);
 
+router.get('/get-procesos', administradorController.getProcesos)
 
 module.exports = router;

@@ -1,5 +1,29 @@
 const estudianteModel = require("../models/estudianteModel");
 const utilitarios = require("../util/util");
+
+exports.getDepartamentos = (req, res) => {
+  estudianteModel.getDepartamentos((result) => {
+    res.json(result)
+  })
+}
+exports.getProvincias = (req, res) => {
+  estudianteModel.getProvincias(req.query.departamento ,(result) => {
+    res.json(result)
+  })
+}
+exports.getDistritos = (req, res) => {
+  const {departamento, provincia} = req.query
+  estudianteModel.getDistritos([departamento, provincia],(result) => {
+    res.json(result)
+  })
+}
+exports.getUbigerPorZona = (req, res) => {
+  const {departamento, provincia, distrito} = req.query
+  estudianteModel.getUbigerPorZona([departamento, provincia, distrito],(result) => {
+    res.json(result)
+  })
+}
+
 exports.setVoucherDePago = (req, res) => {
   Estudiante.setVoucherDePago((result) => {
     res.json(result);

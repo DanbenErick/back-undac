@@ -1,5 +1,11 @@
 const Administrador = require('../models/administradorModel')
 
+exports.getProcesos = (req, res) => {
+    Administrador.getProcesos((result) => {
+        res.json(result)
+    })
+}
+
 exports.setVoucherDePago = (req, res) => {
     const { proceso, fecha_reg, dni, nombre, monto: pago1, codigo, idusu, signup} = req.body
     const modalidad = "n";
