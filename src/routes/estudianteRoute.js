@@ -11,6 +11,8 @@ router.get('/get-distritos', estudianteController.getDistritos)
 router.get('/get-ubigeo', estudianteController.getUbigerPorZona)
 router.get('/get-discapacidades', estudianteController.getDicapacidades)
 router.get('/get-etnicas', estudianteController.getEtnicas)
+router.get('/get-sedes', estudianteController.getSedes)
+router.get('/get-programas-estudio', estudianteController.getProgramasEstudio)
 
 
 module.exports = router;  

@@ -1,6 +1,7 @@
 const db = require("../config/db");
 const Estudiante = {};
 
+
 Estudiante.getUbigerPorZona = (data, callback) => {
   console.log(data)
   db.query(

@@ -1,6 +1,52 @@
 const estudianteModel = require("../models/estudianteModel");
 const utilitarios = require("../util/util");
 
+exports.getProgramasEstudio = (req, res) => {
+  res.json([
+    { id: 1, nombre: "AGRONOMÃA (LA MERCED)" },
+    { id: 2, nombre: "AGRONOMÃA (OXAPAMPA)" },
+    { id: 3, nombre: "AGRONOMÃA (PASCO)" },
+    { id: 4, nombre: "AGRONOMÃA (PAUCARTAMBO)" },
+    { id: 5, nombre: "AGRONOMÃA (YANAHUANCA)" },
+    { id: 6, nombre: "INDUSTRIAS ALIMENTARIAS (LA MERCED)" },
+    { id: 7, nombre: "ZOOTECNIA (OXAPAMPA)" },
+    { id: 8, nombre: "ZOOTECNIA (PASCO)" },
+    { id: 9, nombre: "CIENCIAS DE LA COMUNICACION(LA MERCED) " },
+    { id: 10, nombre: "CIENCIAS DE LA COMUNICACIA (PASCO)" },
+    { id: 11, nombre: "BIOLOGÃA Y QUÃMICA (PASCO)" },
+    {
+      id: 13,
+      nombre: "CIENCIAS SOCIALES, FILOSOFÃA Y PSICOLOGÃA EDUCATIVA (PASCO)",
+    },
+    { id: 15, nombre: "COMUNICACIÃN Y LITERATURA (PASCO)" },
+    { id: 16, nombre: "EDUCACIAN INICIAL (PASCO)" },
+    { id: 18, nombre: "EDUCACIÃN PRIMARIA (OXAPAMPA)" },
+    { id: 19, nombre: "EDUCACIÃN PRIMARIA (FASCO)" },
+    { id: 21, nombre: "EDUCACIAN PRIMARIA (YANAHUANCA)" },
+    { id: 22, nombre: "HISTORIA, CIENCIAS SOCIALES Y TURISMO (PASCO)" },
+    { id: 24, nombre: "LENGUAS EXTRANJERAS INGLÃ%OS - FRANCÃ%S (PASCO)" },
+    { id: 25, nombre: "MATEMATICA - FÃSICA (PASCO)" },
+    { id: 26, nombre: "TECNOLOGÃA, INFORMÁTICA Y TELECOMUNICACIONES (PASCO)" },
+    { id: 27, nombre: "TECNOLOGÃA, INFORMÁTICA Y TELECOMUNICACIONES (YANAHL" },
+    { id: 28, nombre: "CONTABILIDAD (PASCO)" },
+    { id: 30, nombre: "ECONOMÃA (PASCO)" },
+    { id: 31, nombre: "ADMINISTRACIÃN (PASCO)" },
+    { id: 32, nombre: "DERECHO (PASCO)" },
+    { id: 33, nombre: "INGENIERÃA AMBIENTAL (OXAPAMPA)" },
+    { id: 34, nombre: "INGENIERÃA AMBIENTAL (PASCO)" },
+    { id: 35, nombre: "INGENIERÃA CIVIL (PASCO)" },
+    { id: 36, nombre: "INGENIERÃA DE SISTEMAS Y COMPUTACIÃN (PASCO)" },
+    { id: 37, nombre: "INGENIERÃA GEOLÃGICA (PASCO)." },
+    { id: 38, nombre: "INGENIERÃA METALÃSRGICA (PASCO)" },
+    { id: 39, nombre: "INGENIERÃA DE MINAS (PASCO)" },
+    { id: 40, nombre: "MEDICINA HUMANA (PASCO)" },
+    { id: 41, nombre: "ODONTOLOGÃA (PASCO)" },
+    { id: 42, nombre: "ENFERMERÃA (PASCO)" },
+    { id: 43, nombre: "ENFERMERÃA (TARMA)" },
+    { id: 44, nombre: "OBSTETRICIA (PASCO)" },
+  ])
+}
+
 exports.getDicapacidades = (req, res) => {
   res.json([
     {discapacidad: "DISCAPACIDAD VISUAL"},
@@ -43,6 +89,17 @@ exports.getEtnicas = (req, res) => {
     {etnia: "NO CUENTA CON INFORMACION"},
 ]);
 };
+exports.getSedes = (req, res) => {
+  res.json([
+    
+    {sede: "Tarma"},
+    {sede: "la Merced"},
+    {sede: "yanahuanca"},
+    {sede: "Pasco"},
+    {sede: 'Oxapampa'},
+    {sede: 'Paucartambo'},
+  ])
+}
 exports.getDepartamentos = (req, res) => {
   estudianteModel.getDepartamentos((result) => {
     res.json(result);
