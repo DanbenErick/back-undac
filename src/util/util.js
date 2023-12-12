@@ -26,7 +26,7 @@ const utilitarios = {
         return data
       });
 
-    }
+    },
   };
   
 
