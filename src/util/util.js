@@ -1,3 +1,5 @@
+const fs = require('fs')
+const path = require('path')
 const utilitarios = {
     generarNumero4y5: (numero_requerido) => {
       let final = "";
@@ -11,6 +13,21 @@ const utilitarios = {
       }
       return {final, suma}
     },
+    getDiscapacidades: () => {
+      const ruta = path.join(__dirname, '../json/discapacidades.json');
+      console.log(ruta);
+      path.join(__dirname, 'json/discapacidades.json')
+      fs.readFile(ruta, 'utf8', (error, data) => {
+        if (error) {
+            console.error('Error al leer el archivo:', error);
+            return;
+        }
+        console.log("2", data)
+        return data
+      });
+
+    }
   };
+  
 
 module.exports = utilitarios

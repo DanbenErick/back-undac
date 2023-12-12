@@ -6,8 +6,10 @@ const dbConfig  = {
   host: "localhost",
   port: 3306,
   database: "admision_cepre",
-  user: "root_test",
-  password: "test",
+  user: "root",
+  password: "",
+  // user: "root_test",
+  // password: "test",
 };
 
 const connection = mysql.createConnection(dbConfig);
