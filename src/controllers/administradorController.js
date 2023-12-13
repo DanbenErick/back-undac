@@ -1,5 +1,23 @@
 const Administrador = require('../models/administradorModel')
 
+exports.setVoucher = (req, res) => {
+    const { tipoVoucher ,fecha ,nombreCompleto ,dni ,monto ,codigo } = req.body
+    const data = [codigo, fecha, dni, nombreCompleto, tipoVoucher, monto, 'si', '67']
+    Administrador.guardarVoucher(data ,result => {
+        res.json(result)
+    })
+}
+exports.getVouchers = (req, res) => {
+    Administrador.getVouchers(result => {
+        res.json(result)
+    })
+}
+exports.getDataForDNIEstudiante = (req, res) => {
+    Administrador.findNombreForDNI([req.body.dni], result => {
+        res.json(result)
+    })
+}
+
 exports.getProcesos = (req, res) => {
     Administrador.getProcesos((result) => {
         res.json(result)
