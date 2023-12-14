@@ -56,9 +56,7 @@ Administrador.crearProceso = (data, callback) => {
 
 Administrador.actualizarDatosApoderado = (data, callback) => {
   db.query("UPDATE registro SET ap_no_apo = ?, cel_apo = ?, dni_apo = ? WHERE dni = ?", [...data], (err, result) => {
-    
     if(err) throw err
-    console.log("Registro correcto")
     callback(result)
   })
 }
@@ -66,14 +64,12 @@ Administrador.actualizarDatosApoderado = (data, callback) => {
 Administrador.registrarComplementariosEstudiante = (data, callback) => {
   db.query("INSERT INTO datos_comp (dni, sexo, fecha_nac, lugar_nac, direccion_act, disca, tipo_disca, etnica, fono1, fono2, foto, fecha_datos, colegio, tipo_colegio) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [...data], (err, result) => {
     if(err) throw err
-    console.log("Registro correcto")
     callback(result)
   })
 }
 Administrador.registrarTablaInscriptos = (data, callback) => {
   db.query("INSERT INTO inscritos (dni, codigo, proceso, modalidad, carrera, sede_e, pago1, preparatoria, fecha_reg, anio) VALUES (?,?,?,?,?,?,?,?,?,?)", [...data], (err, result) => {
     if(err) throw err
-    console.log("Registro correcto")
     callback(result)
   })
 }

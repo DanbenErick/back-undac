@@ -1,4 +1,7 @@
+
+
 const Administrador = require('../models/administradorModel')
+
 
 exports.setVoucher = (req, res) => {
     const { tipoVoucher, fecha, nombreCompleto, dni, monto, codigo } = req.body
@@ -18,6 +21,7 @@ exports.getDataForDNIEstudiante = (req, res) => {
     })
 }
 exports.registrarDatosPostulante = (req, res) => {
+    console.table(req.file)
     const { apellidosNombres: nombreCompletoApoderado,
         celularApoderado,
         dniApoderado,
@@ -44,19 +48,13 @@ exports.registrarDatosPostulante = (req, res) => {
          } = req.body
          let codigoCarrera
          Administrador.getIdCarreraForCodigo([selectProgramaEstudio], (resp) => {
-             console.log('codigo alksjdlkajdlkasjdlkasjdlkasjdlkasjdlkasjdlkasjdlkasjld', resp)
             codigoCarrera = resp[0].CODIGO_ESCUELA
-
-
-            Administrador.actualizarDatosApoderado([nombreCompletoApoderado, celularApoderado, dniApoderado, dniEstudiante], (result) => {
-                console.log('Resulta 1', result);
-            })
-            Administrador.registrarComplementariosEstudiante([dniEstudiante, genero, fechaNacimiento, inputUbigeo, direccionActual, discapacidad, tipoDiscapacidad, identidadEtnica, celular, telefonoFijo, `${dniEstudiante}.jgeg`, new Date(), nombreColegio, tipoColegio], (result) => {
-                console.log('Resulta 2', result);
-            })
-            Administrador.registrarTablaInscriptos([dniEstudiante, selectProgramaEstudio, selectModalidad, selectModalidad, codigoCarrera, selectSedeExamen, 0, 'no', new Date(), new Date().getFullYear()], (result) => {
-                console.log('Resulta 3', result);
-        
+            Administrador.actualizarDatosApoderado([nombreCompletoApoderado, celularApoderado, dniApoderado, dniEstudiante], (result1) => {
+                Administrador.registrarComplementariosEstudiante([dniEstudiante, genero, fechaNacimiento, inputUbigeo, direccionActual, discapacidad, tipoDiscapacidad, identidadEtnica, celular, telefonoFijo, `${dniEstudiante}.jgeg`, new Date(), nombreColegio, tipoColegio], (result2) => {
+                    Administrador.registrarTablaInscriptos([dniEstudiante, selectProgramaEstudio, selectModalidad, selectModalidad, codigoCarrera, selectSedeExamen, 0, 'no', new Date(), anioConclusion], (result3) => {
+                        res.json({ok: true, message: 'Se regristro correctamente', affecctRow: result1.affectedRows + result2.affectedRows + result3.affectedRows})
+                    })
+                })
             })
          })
     // dni, codigo, proceso, modalidad, carrera, sede_e, pago_1, preparatoria, fecha_reg, anio
@@ -66,8 +64,8 @@ exports.registrarDatosPostulante = (req, res) => {
     // registro  = datos del apoderado
     // {apellido_p,apellido_m,nombres,tipo_documento,dni,correo,clave,fecha_reg,ap_no_apo,cel_apo,dni_apo}
 
-    console.table(req.body)
-    res.json(req.body)
+    // console.table(req.body)
+    // res.json(req.body)
 }
 
 exports.getProcesos = (req, res) => {
