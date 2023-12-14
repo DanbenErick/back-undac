@@ -21,6 +21,29 @@ Sistema.findUser = (data, callback) => {
 
 Sistema.register = (data, callback) => {
     db.query('INSERT INTO usuario (nombre, dni, clave, fecha, detalle) VALUES (?,?,?, ?, ?)', [...data], (err, result) => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         if(err) throw err
         callback(result)
     })

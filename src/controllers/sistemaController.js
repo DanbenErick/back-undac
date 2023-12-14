@@ -18,9 +18,12 @@ exports.login = (req, res) => {
         const token = jwt.sign(
             { userId: result.id, username: result.username },
             secretKey,
-            { expiresIn: "1h" }
+            
+            { algorithm: 'HS256' ,expiresIn: "1h" }
         );
-        res.json({ token, name: result[0].nombre, id: result[0].id });
+        console.log('Token generado', token)
+        const fechaActual = new Date()
+        res.json({ token, name: result[0].nombre, id: result[0].id, fecha_expiracion:  new Date(fechaActual.getTime() + 3600 * 1000).getTime() });
     })
 };
 exports.register = async (req, res) => {
@@ -45,17 +48,19 @@ exports.register = async (req, res) => {
 };
 
 exports.authenticaToken = (req, res, next) => {
-    const token = req.header("Authorization");
-
+    const authHeader = req.header("Authorization");
+    const token = authHeader.split(" ")[1].trim();
+    console.log("Token que llego", token)
     if (!token) {
         return res.status(401).json({ error: "Acceso no autorizado" });
     }
 
     jwt.verify(token, secretKey, (err, user) => {
+        console.log("error", err)
+        console.log("user", user)
         if (err) {
             return res.status(403).json({ error: "Token no válido" });
         }
-
         req.user = user;
         next();
     });

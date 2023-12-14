@@ -1,9 +1,9 @@
 const Administrador = require('../models/administradorModel')
 
 exports.setVoucher = (req, res) => {
-    const { tipoVoucher ,fecha ,nombreCompleto ,dni ,monto ,codigo } = req.body
+    const { tipoVoucher, fecha, nombreCompleto, dni, monto, codigo } = req.body
     const data = [codigo, fecha, dni, nombreCompleto, tipoVoucher, monto, 'si', '67']
-    Administrador.guardarVoucher(data ,result => {
+    Administrador.guardarVoucher(data, result => {
         res.json(result)
     })
 }
@@ -17,6 +17,58 @@ exports.getDataForDNIEstudiante = (req, res) => {
         res.json(result)
     })
 }
+exports.registrarDatosPostulante = (req, res) => {
+    const { apellidosNombres: nombreCompletoApoderado,
+        celularApoderado,
+        dniApoderado,
+        dniEstudiante,
+        selectModalidad,
+        anioConclusion,
+        tipoColegio,
+        nombreColegio,
+        selectSedeExamen,
+        selectProgramaEstudio,
+        genero,
+        fechaNacimiento,
+        inputUbigeo,
+        selectDepartamentoEstudiant,
+        selectProvinciaEstudiante,
+        selectDistritoEstudiante,
+        direccionActual,
+        discapacidad,
+        tipoDiscapacidad,
+        identidadEtnica,
+        celular,
+        telefonoFijo,
+        foto
+         } = req.body
+         let codigoCarrera
+         Administrador.getIdCarreraForCodigo([selectProgramaEstudio], (resp) => {
+             console.log('codigo alksjdlkajdlkasjdlkasjdlkasjdlkasjdlkasjdlkasjdlkasjld', resp)
+            codigoCarrera = resp[0].CODIGO_ESCUELA
+
+
+            Administrador.actualizarDatosApoderado([nombreCompletoApoderado, celularApoderado, dniApoderado, dniEstudiante], (result) => {
+                console.log('Resulta 1', result);
+            })
+            Administrador.registrarComplementariosEstudiante([dniEstudiante, genero, fechaNacimiento, inputUbigeo, direccionActual, discapacidad, tipoDiscapacidad, identidadEtnica, celular, telefonoFijo, `${dniEstudiante}.jgeg`, new Date(), nombreColegio, tipoColegio], (result) => {
+                console.log('Resulta 2', result);
+            })
+            Administrador.registrarTablaInscriptos([dniEstudiante, selectProgramaEstudio, selectModalidad, selectModalidad, codigoCarrera, selectSedeExamen, 0, 'no', new Date(), new Date().getFullYear()], (result) => {
+                console.log('Resulta 3', result);
+        
+            })
+         })
+    // dni, codigo, proceso, modalidad, carrera, sede_e, pago_1, preparatoria, fecha_reg, anio
+
+    // datos_comp = datos estudiante
+    // {dni,sexo,fecha_nac,lugar_nac,direccion_act,disca,tipo_disca,etnica,fono1,fono2,foto,fecha_datos,colegio,tipo_colegio,}
+    // registro  = datos del apoderado
+    // {apellido_p,apellido_m,nombres,tipo_documento,dni,correo,clave,fecha_reg,ap_no_apo,cel_apo,dni_apo}
+
+    console.table(req.body)
+    res.json(req.body)
+}
 
 exports.getProcesos = (req, res) => {
     Administrador.getProcesos((result) => {
@@ -25,7 +77,7 @@ exports.getProcesos = (req, res) => {
 }
 
 exports.setVoucherDePago = (req, res) => {
-    const { proceso, fecha_reg, dni, nombre, monto: pago1, codigo, idusu, signup} = req.body
+    const { proceso, fecha_reg, dni, nombre, monto: pago1, codigo, idusu, signup } = req.body
     const modalidad = "n";
     const carrera = 1;
     const sede_e = "n";
@@ -33,45 +85,45 @@ exports.setVoucherDePago = (req, res) => {
     const preparatoria = "n";
     const anio = "n";
     const turno = "n";
-    const data = { proceso, fecha_reg, dni, nombre, pago1, codigo, idusu, signup, modalidad ,carrera ,sede_e ,pago2 ,preparatoria ,anio ,turno }
+    const data = { proceso, fecha_reg, dni, nombre, pago1, codigo, idusu, signup, modalidad, carrera, sede_e, pago2, preparatoria, anio, turno }
     Administrador.setVoucherDePago(data, (result) => {
         res.json(result)
     })
 }
 
 exports.crearProceso = (req, res) => {
-     // Recibimos los datos
-     const { nombre, estado, fecha } = req.body
-     Administrador.crearProceso(req.body, (result) => {
+    // Recibimos los datos
+    const { nombre, estado, fecha } = req.body
+    Administrador.crearProceso(req.body, (result) => {
         res.status(200).json(result)
-     })
-     //   Validamos los datos
+    })
+    //   Validamos los datos
     //  if (!nombre) {
     //    return res.status(400).send({
     //      error: "El nombre es obligatorio",
     //    });
     //  }
-   
+
     //  if (!estado) {
     //    return res.status(400).send({
     //      error: "El estado es obligatorio",
     //    });
     //  }
-   
+
     //  if (!fecha) {
     //    return res.status(400).send({
     //      error: "La fecha es obligatoria",
     //    });
     //  }
-   
-     // Guardamos los datos
-     
-     // Devolvemos una respuesta
-   
-     // Ejecutamos la consulta
-     
-   
-     
-     //   res.status(200)
-     //   res.send("ok")
+
+    // Guardamos los datos
+
+    // Devolvemos una respuesta
+
+    // Ejecutamos la consulta
+
+
+
+    //   res.status(200)
+    //   res.send("ok")
 }

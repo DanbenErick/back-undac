@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const estudianteController = require('../controllers/estudianteController')
+const sistemaController = require('../controllers/sistemaController')
 // Definir rutas para estudiantes
+
+router.use(sistemaController.authenticaToken)
 
 router.post("/registrar-datos-postulante", estudianteController.registrarDatosPostulante);
 
