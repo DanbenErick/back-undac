@@ -30,9 +30,12 @@ router.post("/registrar-voucher", administradorController.setVoucherDePago);
 router.post("/crear-proceso", administradorController.crearProceso);
 router.post("/get-data-from-dni-estudiante", administradorController.getDataForDNIEstudiante);
 router.post("/set-voucher", administradorController.setVoucher);
+router.post("/editar-datos-postulante", administradorController.modificarDatosEstudianteTablaInscritosyGenerales)
 router.post("/registrar-datos-postulante", upload.single('foto'), administradorController.registrarDatosPostulante)
 
 router.get('/get-procesos', administradorController.getProcesos)
 router.get('/get-vouchers', administradorController.getVouchers)
+router.get('/get-estudiantes-incritos-examen', administradorController.getEstudianteParaExamen)
 
 module.exports = router;
+

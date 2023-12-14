@@ -2,6 +2,24 @@
 
 const Administrador = require('../models/administradorModel')
 
+exports.getEstudianteParaExamen = (req, res) => {
+    Administrador.getEstudiantesParaExamen(resp => {
+        res.json(resp)
+    })
+}
+
+exports.modificarDatosEstudianteTablaInscritosyGenerales = (req, res) => {
+    const {dni, ap_paterno, ap_materno, nombres, programa, area, sede, preparatoria} = req.body
+    console.log(req.body)
+    Administrador.modificarTablaInscritosPorEstudiante([programa, sede, preparatoria, dni], result1 => {
+        Administrador.modificarTablaRegistroPorEstudiante([ap_paterno, ap_materno, nombres, dni], result2 => {
+            console.log(result1)
+            console.log(result2)
+            res.json({ok: true, message: 'Se regristro correctamente', affecctRow: result1.affectedRows + result2.affectedRows})
+        })
+
+    })
+}
 
 exports.setVoucher = (req, res) => {
     const { tipoVoucher, fecha, nombreCompleto, dni, monto, codigo } = req.body
