@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8000;
 
 // Archivos Estaticos
 app.use(bodyParser.json())
-app.use(cors());
+// app.use(cors());
 app.use('/', routes)
 
 
