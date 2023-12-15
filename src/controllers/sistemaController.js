@@ -9,11 +9,20 @@ exports.login = (req, res) => {
     const { username, password } = req.body;
 
     sistemaModel.findUser([username], async (result) => {
-        if(!result.length) res.json({ error: 'No se encontro usuario' })
-        console.log(password, result[0].clave)
-        const passwordMatch = await bcrypt.compare(password, result[0].clave);
-        if (!passwordMatch)
-            return res.status(401).json({ error: "Contraseña incorrecta" });
+        if(result.length == 0) {
+            res.status(401).json({ ok: false, error: 'No se encontro usuario' })
+            return
+        }
+        console.log(password, result.length)
+        // const passwordMatch = await bcrypt.compare(password, result[0].clave);
+        // if (!passwordMatch)
+        //     return res.status(401).json({ error: "Contraseña incorrecta" });
+        
+        if (result[0].clave != password){
+            res.status(401).json({ ok: false, error: "Contraseña incorrecta" })
+            return
+        };
+            
 
         const token = jwt.sign(
             { userId: result.id, username: result.username },
@@ -23,27 +32,28 @@ exports.login = (req, res) => {
         );
         console.log('Token generado', token)
         const fechaActual = new Date()
-        res.json({ token, name: result[0].nombre, id: result[0].id, fecha_expiracion:  new Date(fechaActual.getTime() + 3600 * 1000).getTime() });
+        res.status(200).json({ ok: true, token, name: result[0].nombre, id: result[0].id, fecha_expiracion:  new Date(fechaActual.getTime() + 3600 * 1000).getTime() });
     })
 };
 exports.register = async (req, res) => {
-    const { username, name, password } = req.body;
+    const { username, name, password } = req.body;+
+    console.log("datos recibidos", req.body)
     const fechaActual = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = [name, username, hashedPassword, fechaActual, 'ADMIN'];
+    // const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = [name, username, password, fechaActual, 'ADMIN'];
 
     sistemaModel.register(newUser, (result) => {
         // Generar token JWT para el nuevo usuario registrado
         const token = jwt.sign(
-            { userId: "121212", username: newUser.username },
+            { userId: "12345", username: newUser.username },
             secretKey,
             {
                 expiresIn: "1h",
             }
         );
-        console.log(result);
+        console.log("respuesta" ,{ token, id: result.insertId, nombre: name });
         // Enviar el token como respuesta
-        res.json({ token, id: result.insertId, nombre: name });
+        res.json({ token, id: result.insertId, name: name });
     });
 };
 

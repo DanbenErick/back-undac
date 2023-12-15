@@ -29,14 +29,8 @@ Administrador.getVouchers = (callback) => {
 
 
 Administrador.modificarTablaInscritosPorEstudiante = (data, callback) => {
-  console.log(`UPDATE inscritos
-  SET codigo = ?,
-      sede_e = ?,
-      preparatoria = ?
-  WHERE dni = ?`)
-  console.log(data)
   db.query(`UPDATE inscritos
-  SET codigo = ?,
+  SET carrera = ?,
       sede_e = ?,
       preparatoria = ?
   WHERE dni = ?`, [...data], (err, result) => {
@@ -67,10 +61,10 @@ Administrador.guardarVoucher = (data, callback) => {
 Administrador.findNombreForDNI = (data, callback) => {
 
   db.query(`
-  SELECT *, vacantes.area2
+  SELECT *, vacantes.area2 
   FROM registro
   LEFT JOIN inscritos ON registro.dni = inscritos.dni
-  LEFT JOIN vacantes ON vacantes.area COLLATE utf8mb3_spanish_ci = inscritos.codigo COLLATE utf8mb3_spanish_ci
+  LEFT JOIN vacantes ON vacantes.CODIGO_ESCUELA COLLATE utf8mb3_spanish_ci = inscritos.carrera COLLATE utf8mb3_spanish_ci
   WHERE registro.dni = ?
   `, [...data], (err, result) => {
     if (err) throw err
