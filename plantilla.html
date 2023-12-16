@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla HTML</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        table {
+            margin-top: 10px;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+        }
+        .title {
+            text-align: center;
+        }
+        .title_header {
+            font-size: 10px;
+        }
+        .title_header td {
+            padding: 2px;
+        }
+    </style>
+</head>
+<body>
+    <table class="title_header">
+        <tr>
+            <td rowspan="6">
+                <!-- file:///ruta/a/tu/imagen.jpg -->
+                <img src="undac-logo.png" alt="">
+            </td>
+            <td colspan="3" style="text-align: center; font-weight: bold;">UNIVERSIDAD NACIONAL DANIEL ALCIDES CARRION</td>
+            
+        </tr>
+        <tr>
+            <!-- <td >asdasdasd</td> -->
+            <td rowspan="5" style="text-align: center; font-weight: bold;">
+                VICERRECTORADO ACADÉMICO<br />
+                DIRECCIÓN DE ADMISIÓN<br />
+                RESULTADO GENERAL DE INGRESANTES<br />
+                PRIMERA
+            </td>
+            <td>Codigo de documento: </td>
+            <td>GAC-DI-08</td>
+        </tr>
+        <tr>
+            <!-- <td>asd</td> -->
+            <td>Version. </td>
+            <td>Ver. 0.1</td>
+        </tr>
+        <tr>
+            <!-- <td>asd</td> -->
+            <td>Fecha: </td>
+            <td>20/06/2022</td>
+        </tr>
+        <tr>
+            <!-- <td>asd</td> -->
+            <td>Registro de archivo: </td>
+            <td>A15-22-08</td>
+        </tr>
+        <tr>
+            <!-- <td>asd</td> -->
+            <td>Pagina: </td>
+            <td>1/97</td>
+        </tr>
+        
+    </table>
+    <h2 class="title">FACULTAD DE CIENCIAS AGROPECUARIAS</h2>
+    <h2 class="title">ESCUELA DE FORMACION PROFESIONAL DE INDUSTRIAS ALIMENTARIAS</h2>
+    <h3 class="title">PROGRAMA DE ESTUDIOS DE INDUSTRIAS ALIMENTARIAS (LA MERCED)</h3>
+
+    <table class="fila_ingreso">
+        <tr >
+            <td rowspan="3">1</td>
+            <td rowspan="3"><img src="undac-logo.png" alt=""></td>
+            <td>APELLIDO PATERNO</td>
+            <td>NINCAYA</td>
+            <td>CODIGO</td>
+            <td>2313123213</td>
+        </tr>
+        <tr>
+            <td>APELLIDO MATERNO</td>
+            <td>ZARATE</td>
+            <td>PUNTAJE</td>
+            <td>99.99</td>
+        </tr>
+        <tr>
+            <td>NOMBRES</td>
+            <td>NINCAYA</td>
+            <td>ESTADO</td>
+            <td>INGRESO</td>
+        </tr>
+    </table>
+    <table class="fila_no_ingreso">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>CODIGO</th>
+                <th>APELLIDOS Y NOMBRES</th>
+                <th>PUNTAJE</th>
+                <th>ESTADO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5</td>
+                <td>60606060</td>
+                <td>ROJAS ANCHIRAICO, NOEMI JASMIN</td>
+                <td>75.90</td>
+                <td>NO INGRESo</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <tr>
+            <td>Elaborado por:</td>
+            <td>Revisado por:</td>
+            <td>Cuadro de vacantes aprobado por:</td>
+        </tr>
+        <tr>
+            <td>Comisión de Calificación y Publicación de
+                Resultados examen PRIMERA SELECCION 2023</td>
+            <td>Dirección de Admisión</td>
+            <td rowspan="3"> Resolución de Consejo Universitario N° 1132-2022-UNDAC-C.U.</td>
+        </tr>
+        <tr>
+            <td>Mg. Dolly Luz PAREDES INOCENTE</td>
+            <td rowspan="2"></td>
+            
+        </tr>
+        <tr>
+            <td>Firma: ___________________________</td>
+            
+        </tr>
+    </table>
+
+</body>
+</html>
