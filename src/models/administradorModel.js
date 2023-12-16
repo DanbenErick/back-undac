@@ -1,13 +1,79 @@
 const db = require('../config/db')
 const Administrador = {}
+Administrador.getDataForTablaResultados = (data, callback) => {
+  
+  db.query(`SELECT modalidad, sede_e, carrera FROM inscritos WHERE dni = ?`, data, (err, result) => {
+    if(err) throw err
+    
+    callback(result)
+  })
+}
+Administrador.registrarSolapaPuntaje = (data, callback) => {
+  db.query("INSERT INTO puntaje (COD_FICHA, PUNTAJE, N_EXAMEN, SEDE) VALUES (?,?,?,?)", [...data], (err, result) => {
+    if(err) throw err
+    callback(result)
+  })
+}
+Administrador.registrarSolapaPrincipal = (data, callback) => {
+  db.query(`INSERT INTO
+  resultados (PROCESO,
+              SUBPROCESO,
+              CODIGO,
+              COD_FICHA,
+              COD_FICHA2,
+              POSTULANTE,
+              P_OPCION,
+              S_OPCION,
+              PUNT_1,
+              PUNT_2,
+              PUNT_T,
+              EST_1OPCION,
+              EST_2OPCION,
+              ASISTENCIA1,
+              ASISTENCIA2,
+              OPC_ING,
+              ORD_M1OP,
+              ORD_M2OP,
+              AULA1,
+              AULA2,
+              SEDE,
+              CONVENIO) VALUES 
+              (
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?
+              )`, [...data], (err, result) => {
+    if(err) throw err
+    callback(result)
+  });
+}
 
 Administrador.getEstudiantesParaExamen = callback => {
-  db.query(`SELECT *, vacantes.area2
-  FROM registro
-  LEFT JOIN inscritos ON registro.dni = inscritos.dni
-  LEFT JOIN vacantes ON vacantes.area COLLATE utf8mb3_spanish_ci = inscritos.codigo COLLATE utf8mb3_spanish_ci
-  ORDER BY registro.id DESC
-  LIMIT 100`, (err, result) => {
+  db.query(`SELECT inscritos.*, registro.*, inscritos.dni, vacantes.AREA2, vacantes.CODIGO_ESCUELA, vacantes.FACULTAD, vacantes.ESCUELA
+  FROM inscritos
+  LEFT JOIN registro ON registro.dni = inscritos.dni
+  LEFT JOIN vacantes ON vacantes.CODIGO_ESCUELA COLLATE utf8mb3_spanish_ci = inscritos.carrera COLLATE utf8mb3_spanish_ci
+  ORDER BY inscritos.id DESC
+  LIMIT 150`, (err, result) => {
     if(err) throw err
     callback(result)
   })
